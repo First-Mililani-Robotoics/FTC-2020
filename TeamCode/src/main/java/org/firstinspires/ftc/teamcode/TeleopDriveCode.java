@@ -60,6 +60,7 @@ public class TeleopDriveCode extends OpMode
     private DcMotor rightFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
+    private DcMotor intakeDrive = null;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -74,12 +75,14 @@ public class TeleopDriveCode extends OpMode
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
-        // Most robots need the motor on one side to be reversed to drive forward
+        intakeDrive = hardwareMap.get(DcMotor.class, "intake_drive");
+                        // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        intakeDrive.setDirection(DcMotor.Direction.REVERSE);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -109,6 +112,7 @@ public class TeleopDriveCode extends OpMode
         double rightFrontPower;
         double leftBackPower;
         double rightBackPower;
+        double intakePower;
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
@@ -120,12 +124,14 @@ public class TeleopDriveCode extends OpMode
         rightFrontPower   = Range.clip(drive - turn, -1.0, 1.0) ;
         leftBackPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightBackPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        intakePower   = Range.clip(drive - turn, -1.0, 1.0) ;
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         leftFrontPower  = -gamepad1.left_stick_y ;
         rightFrontPower = -gamepad1.right_stick_y ;
         leftBackPower  = -gamepad1.left_stick_y ;
         rightBackPower = -gamepad1.right_stick_y ;
+        intakePower = -gamepad2.left_stick_y ;
         // Send calculated power to wheels
         leftFrontDrive.setPower(leftFrontPower);
         rightFrontDrive.setPower(rightFrontPower);
@@ -133,8 +139,8 @@ public class TeleopDriveCode extends OpMode
         rightBackDrive.setPower(rightBackPower);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "leftFront (%.2f), rightFront (%.2f), leftBack (%.2f), rightBack (%.2f)",
-                                                leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
+        telemetry.addData("Motors", "leftFront (%.2f), rightFront (%.2f), leftBack (%.2f), rightBack (%.2f), intakePower (%.2f)",
+                                                leftFrontPower, rightFrontPower, leftBackPower, rightBackPower, intakePower);
     }
 
     /*
