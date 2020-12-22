@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Basic: TeleopDriveCode", group="Iterative Opmode")
-@Disabled
+//@Disabled//*
 public class TeleopDriveCode extends OpMode
 {
     // Declare OpMode members.
@@ -132,7 +132,7 @@ public class TeleopDriveCode extends OpMode
         rightBackDrive.setPower(rightBackPower);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
+        telemetry.addData("Motors", "leftFront (%.2f), rightFront (%.2f), leftBack (%.2f), rightBack (%.2f)", leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
     }
 
     /*
