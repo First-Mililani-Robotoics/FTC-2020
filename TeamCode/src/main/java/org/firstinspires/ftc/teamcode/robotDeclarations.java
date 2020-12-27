@@ -47,11 +47,56 @@ public void init(HardwareMap hardwareMap) {
     rightBackDrive.setPower(0);
     leftFrontDrive.setPower(0);
     rightFrontDrive.setPower(0);
+    }
+
+
+    private ElapsedTime     runtime = new ElapsedTime(); // For the use of time
+//determines variables for  turning//
+    final static int DIAMETER                = 4; // This is the diameter of the wheels of the robot in inches
+
+    final static double CIRCUMFRENCE         = Math.PI * DIAMETER; // calculates the circumference of the wheels in inches
+    final static double GEARREDUCTION        = 1; // If we were to have gears the gear reduction would go up or down depending
+    final static int TICKSPERROTATION        = 560; // there is 1680 ticks per a revolution of a motor
+    public final static double ROBOTRADIOUS  = 8.5; // the radious of the robot is 8.5 inches
+    public final static double TILELENGTH    = 22.75; // the length of a tile is 22.75 inches
+    public final static double TICKSPERANINCHSTRAFING = 37;
+
+    //determins the amount of ticks per an inch
+    static final double COUNTS_PER_INCH = (TICKSPERROTATION * GEARREDUCTION) / CIRCUMFRENCE;
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches,
+                             double timeoutS)
+
+
+//determine variables for driving//
+    static final double COUNTS_PER_MOTOR_REV    = 1440 ;
+    static final double DRIVE_GEAR_REDUCTION    = 2.0 ;
+    static final double WHEEL_DIAMETER_INCHES   = 4.0 ;
+    static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double  DRIVE_SPEED            = 1.0;
+    static final double  TURN_SPEED             = 0.5;
+
+    @Override public void runOpMode() {
+
+        robot.init(hardwareMap);
+
+
+        telemetry.addData("Status", "Resetting Encoders");   //
+        telemetry.update();
+
+        robot.leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+        // Define and Initialize Motors
 
     }
-}
-
-
-
-
-    // Define and Initialize Motors
