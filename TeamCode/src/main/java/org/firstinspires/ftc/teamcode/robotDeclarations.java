@@ -6,10 +6,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+public class robotDeclarations extends LinearOpMode {
 
-public class robotDeclarations {
+public void runOpMode(){
 
-
+    }
     //determines variables for  turning//
     final static int DIAMETER = 4; // This is the diameter of the wheels of the robot in inches
 
