@@ -123,6 +123,17 @@ public void runOpMode(){
                 telemetry.update();
             }
 
+            leftBackDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightFrontDrive.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         }
     }
 }
