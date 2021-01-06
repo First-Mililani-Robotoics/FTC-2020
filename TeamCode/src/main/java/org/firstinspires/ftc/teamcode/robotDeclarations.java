@@ -74,8 +74,30 @@ public class robotDeclarations {
     //make encoder drive function
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
 
+        if (opModeIsActive()) {
 
+            // Determine new target position, and pass to motor controller
+            leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftFrontDrive.setTargetPosition((int)(leftInches * COUNTS_PER_INCH));
+            rightFrontDrive.setTargetPosition((int)(rightInches * COUNTS_PER_INCH));
+            leftBackDrive.setTargetPosition((int)(leftInches * COUNTS_PER_INCH));
+            rightBackDrive.setTargetPosition((int)(rightInches * COUNTS_PER_INCH));
+
+            // Turn On RUN_TO_POSITION
+            leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+
+
+
+        }
     }
-
-
 }
