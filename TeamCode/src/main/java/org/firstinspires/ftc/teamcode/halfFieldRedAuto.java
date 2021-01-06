@@ -1,43 +1,33 @@
 package org.firstinspires.ftc.teamcode;
 
-public class halfFieldRedAuto extends LinearOpMode {
+public class halfFieldRedAuto extends robotDeclarations {
 
     robotDeclarations robot   = new robotDeclarations();
 
-
-
-static final double COUNTS_PER_MOTOR_REV    = 1440 ;
-static final double DRIVE_GEAR_REDUCTION    = 2.0 ;
-static final double WHEEL_DIAMETER_INCHES   = 4.0 ;
-static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                              (WHEEL_DIAMETER_INCHES * 3.1415);
-static final double  DRIVE_SPEED            = 1.0;
-static final double  TURN_SPEED             = 0.5;
 
 @Override public void runOpMode() {
 
     robot.init(hardwareMap);
 
 
-    telemetry.addData("Status", "Resetting Encoders");   //
+    // Send telemetry message to signify robot waiting;
+    telemetry.addData("Status", "Resetting Encoders");    //
     telemetry.update();
-
-    robot.leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    robot.rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-    robot.leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     telemetry.addData("Path0", "Starting at %7d :%7d",
             robot.leftFrontDrive.getCurrentPosition(),
             robot.rightFrontDrive.getCurrentPosition());
-    robot.leftBackDrive.getCurrentPosition(),
+            robot.leftBackDrive.getCurrentPosition(),
             robot.rightBackDrive.getCurrentPosition();
     telemetry.update();
+
+    // This is getting the amount of inches the wheel has to turn to reach 90 degrees
+    double inchesMoved = degreesToInches(45);
+    robot.foundationOne.setPosition(0);
+    robot.foundationTwo.setPosition(1);
+
+
+
 
 //wait for game to start (press PLAY)
     waitForStart();
