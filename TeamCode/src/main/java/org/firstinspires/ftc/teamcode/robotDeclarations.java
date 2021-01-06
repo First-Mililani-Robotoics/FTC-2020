@@ -34,12 +34,12 @@ public void runOpMode(){
 
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFrontDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightBackDrive = null;
-    private DcMotor intakeDrive = null;
+    public ElapsedTime runtime = new ElapsedTime();
+    public DcMotor leftFrontDrive = null;
+    public DcMotor rightFrontDrive = null;
+    public DcMotor leftBackDrive = null;
+    public DcMotor rightBackDrive = null;
+    public DcMotor intakeDrive = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
