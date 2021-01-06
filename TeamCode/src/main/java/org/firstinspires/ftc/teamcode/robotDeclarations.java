@@ -17,7 +17,7 @@ public void runOpMode(){
 
     final static double CIRCUMFRENCE = Math.PI * DIAMETER; // calculates the circumference of the wheels in inches
     final static double GEARREDUCTION = 1; // If we were to have gears the gear reduction would go up or down depending
-    final static int TICKSPERROTATION = 560; // there is 1680 ticks per a revolution of a motor
+    final static int    TICKSPERROTATION = 560; // there is 1680 ticks per a revolution of a motor
     public final static double ROBOTRADIOUS = 8.5; // the radious of the robot is 8.5 inches
     public final static double TILELENGTH = 22.75; // the length of a tile is 22.75 inches
     public final static double TICKSPERANINCHSTRAFING = 37;
@@ -98,7 +98,30 @@ public void runOpMode(){
             // reset the timeout time and start motion.
             runtime.reset();
 
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (leftBackDrive.isBusy() && rightBackDrive.isBusy() && leftFrontDrive.isBusy() && rightFrontDrive.isBusy())) {
 
+                if(leftInches < 0 && rightInches < 0)
+                {
+                    leftBackDrive.setPower(-speed);
+                    leftFrontDrive.setPower(-speed);
+                    rightBackDrive.setPower(-speed);
+                    rightFrontDrive.setPower(-speed);
+                }
+                else if(leftInches > 0 && rightInches > 0)
+                {
+                    leftBackDrive.setPower(speed);
+                    leftFrontDrive.setPower(speed);
+                    rightBackDrive.setPower(speed);
+                    rightFrontDrive.setPower(speed);
+                }
+                // Display it for the driver.
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        leftFrontDrive.getCurrentPosition(),
+                        rightFrontDrive.getCurrentPosition());
+                telemetry.update();
+            }
 
         }
     }
