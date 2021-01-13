@@ -21,14 +21,12 @@ public class halfFieldRedAuto extends robotDeclarations {
             robot.rightBackDrive.getCurrentPosition();
     telemetry.update();
 
-    // This is getting the amount of inches the wheel has to turn to reach 90 degrees
+    // This is getting the amount of inches the wheel has to turn to reach 45 degrees
     double inchesMoved = degreesToInches(45);
     robot.foundationOne.setPosition(0);
     robot.foundationTwo.setPosition(1);
 
 
-
-
 //wait for game to start (press PLAY)
     waitForStart();
 
@@ -43,7 +41,7 @@ public class halfFieldRedAuto extends robotDeclarations {
     encoderDrive(TURN_SPEED, 12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
     encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-
+//create a new function to make degrees. Degrees to ticks,
 
 
 
