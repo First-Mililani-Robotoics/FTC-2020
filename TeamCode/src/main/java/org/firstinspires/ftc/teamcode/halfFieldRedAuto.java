@@ -44,6 +44,29 @@ public class halfFieldRedAuto extends robotDeclarations {
 //create a new function to make degrees. Degrees to ticks,
 
 
+    //Turning
+    public void turnDrive(double speed, double degrees, double timeoutS) {
+        int turnLeftTarget;
+        int turnRightTarget;
+        double rightPower;
+        double leftPower;
+
+        //OpMode
+        if (opModeIsActive()) {
+            //Find the new position)
+            double degreeInches = (degrees * (Math.PI / 180) * ROBOT_RADIUS);
+            if (0 < degrees) {
+                turnLeftTarget = leftFrontDrive.getCurrentPosition() + (int) (degreeInches * COUNTS_PER_INCH);
+                turnRightTarget = rightBackDrive.getCurrentPosition() + (int) (-degreeInches * COUNTS_PER_INCH);
+                rightPower = -speed;
+                leftPower = speed;
+            } else {
+                turnLeftTarget = leftFrontDrive.getCurrentPosition() + (int) (-degreeInches * COUNTS_PER_INCH);
+                turnRightTarget = rightBackDrive.getCurrentPosition() + (int) (degreeInches * COUNTS_PER_INCH);
+                rightPower = speed;
+                leftPower = -speed;
+            }
+
 
 
 
