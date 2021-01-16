@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,7 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import java.awt.image.DirectColorModel;
+//import java.awt.image.DirectColorModel;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -53,8 +52,8 @@ import java.awt.image.DirectColorModel;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
-//@Disabled
+@TeleOp(name="ArcadeTeleop", group="Iterative Opmode")
+
 public class TeleopDriveCode extends OpMode
 {
     // Declare OpMode members.
