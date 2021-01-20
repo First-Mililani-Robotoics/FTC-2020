@@ -7,18 +7,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 public class robotDeclarations extends LinearOpMode {
 
-public void runOpMode(){
+    public void runOpMode() {
 
     }
+
     //determines variables for  turning//
     final static int DIAMETER = 4; // This is the diameter of the wheels of the robot in inches
 
     final static double CIRCUMFRENCE = Math.PI * DIAMETER; // calculates the circumference of the wheels in inches
     final static double GEARREDUCTION = 1; // If we were to have gears the gear reduction would go up or down depending
-    final static int    TICKSPERROTATION = 560; // there is 1680 ticks per a revolution of a motor
-    public final static double ROBOTRADIOUS = 8.5; // the radious of the robot is 8.5 inches
+    final static int TICKSPERROTATION = 560; // there is 1680 ticks per a revolution of a motor
+    public final static double ROBOTRADIUS = 8.5; // the radious of the robot is 8.5 inches
     public final static double TILELENGTH = 22.75; // the length of a tile is 22.75 inches
     public final static double TICKSPERANINCHSTRAFING = 37;
 
@@ -74,7 +76,40 @@ public void runOpMode(){
     }
 
     //make encoder drive function
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
+    public void turnDrive(double speed, double degrees, double timeoutS) {
+        int turnLeftTarget;
+        int turnRightTarget;
+        double rightPower;
+        double leftPower;
+
+        //OpMode
+        if (opModeIsActive()) {
+            //Find the new position)
+            double degreeInches = (degrees * (Math.PI / 180) * ROBOTRADIUS);
+            if (0 < degrees) {
+                turnLeftTarget = leftFrontDrive.getCurrentPosition() + (int) (degreeInches * COUNTS_PER_INCH);
+                turnRightTarget = rightBackDrive.getCurrentPosition() + (int) (-degreeInches * COUNTS_PER_INCH);
+                rightPower = -speed;
+                leftPower = speed;
+            } else {
+                turnLeftTarget = leftFrontDrive.getCurrentPosition() + (int) (-degreeInches * COUNTS_PER_INCH);
+                turnRightTarget = rightBackDrive.getCurrentPosition() + (int) (degreeInches * COUNTS_PER_INCH);
+                rightPower = speed;
+                leftPower = -speed;
+            }
+
+            //wait for game to start (press PLAY)
+            waitForStart();
+
+            encoderDrive(DRIVE_SPEED, 44, 44, 5.0);  // S1: Forward 44 Inches with 5 Sec timeout
+            encoderDrive(TURN_SPEED, 45, -45, 4.0);  // S2: Turn Right 44 Inches with 4 Sec timeout
+            encoderDrive(DRIVE_SPEED, 22.6, 22.6, 4.0);  // S3: Forward 22.6 Inches with 4 Sec timeout
+            encoderDrive(TURN_SPEED, -45, 45, 4.0);   // S2: Turn left 44 Inches with 4 Sec timeout
+        }
+    }
+
+    public void encoderDrive(double speed, double leftInches, double rightInches,
+                             double timeoutS) {
 
         if (opModeIsActive()) {
 
@@ -84,10 +119,10 @@ public void runOpMode(){
             leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            leftFrontDrive.setTargetPosition((int)(leftInches * COUNTS_PER_INCH));
-            rightFrontDrive.setTargetPosition((int)(rightInches * COUNTS_PER_INCH));
-            leftBackDrive.setTargetPosition((int)(leftInches * COUNTS_PER_INCH));
-            rightBackDrive.setTargetPosition((int)(rightInches * COUNTS_PER_INCH));
+            leftFrontDrive.setTargetPosition((int) (leftInches * COUNTS_PER_INCH));
+            rightFrontDrive.setTargetPosition((int) (rightInches * COUNTS_PER_INCH));
+            leftBackDrive.setTargetPosition((int) (leftInches * COUNTS_PER_INCH));
+            rightBackDrive.setTargetPosition((int) (rightInches * COUNTS_PER_INCH));
 
             // Turn On RUN_TO_POSITION
             leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -102,22 +137,19 @@ public void runOpMode(){
                     (runtime.seconds() < timeoutS) &&
                     (leftBackDrive.isBusy() && rightBackDrive.isBusy() && leftFrontDrive.isBusy() && rightFrontDrive.isBusy())) {
 
-                if(leftInches < 0 && rightInches < 0)
-                {
+                if (leftInches < 0 && rightInches < 0) {
                     leftBackDrive.setPower(-speed);
                     leftFrontDrive.setPower(-speed);
                     rightBackDrive.setPower(-speed);
                     rightFrontDrive.setPower(-speed);
-                }
-                else if(leftInches > 0 && rightInches > 0)
-                {
+                } else if (leftInches > 0 && rightInches > 0) {
                     leftBackDrive.setPower(speed);
                     leftFrontDrive.setPower(speed);
                     rightBackDrive.setPower(speed);
                     rightFrontDrive.setPower(speed);
                 }
                 // Display it for the driver.
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         leftFrontDrive.getCurrentPosition(),
                         rightFrontDrive.getCurrentPosition());
                 telemetry.update();
@@ -137,3 +169,5 @@ public void runOpMode(){
         }
     }
 }
+
+
