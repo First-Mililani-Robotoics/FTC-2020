@@ -60,37 +60,36 @@ public class arcadeDrive extends OpMode {
     }
 
 
-    public double driveDegree(double y, double x) {
-        double degreeRadians = (Math.atan2(y, x));
-        double degree = degreeRadians * (180 / Math.PI) + 90;
-
-        return degree >= 0? degree : degree + 360;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void motorPower(double degrees, double forwardPower, double sidePower, double turnPower) {
-
-        if (turnPower >= 0) {
-            leftFoward.setPower(forwardPower);
-            leftReverse.setPower(forwardPower); 
-
-
-        }
-
-
+    public double driveDegreeRadians(double y, double x) {
+        double degreeRadians = (Math.atan2(y, x)) + Math.PI/2;
+        return degreeRadians >= 0? degreeRadians : degreeRadians + 2*Math.PI;
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void motorPower(double degrees, double forwardPower, double sidePower, double turnPower) {
+//
+//        if (turnPower >= 0) {
+//            leftFoward.setPower(forwardPower);
+//            leftReverse.setPower(forwardPower);
+//
+//
+//        }
+//
+//
+//
+//    }
 
 
     @Override
@@ -108,9 +107,22 @@ public class arcadeDrive extends OpMode {
         turnPower = Range.clip(turn, -1.0, 1.0);
 
 
-        double degrees = driveDegree(yPower, xPower);
+        double degreesRadians = driveDegreeRadians(yPower, xPower);
         double magnitude = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
-        double rotationSpeed =
+        double rotationSpeed = gamepad2.left_stick_x;
+
+
+        final double v1 = magnitude * Math.cos(degreesRadians + Math.PI/4) + rotationSpeed;
+        final double v2 = magnitude * Math.sin(degreesRadians + Math.PI/4) - rotationSpeed;
+        final double v3 = magnitude * Math.sin(degreesRadians + Math.PI/4) + rotationSpeed;
+        final double v4 = magnitude * Math.cos(degreesRadians + Math.PI/4) - rotationSpeed;
+
+        leftFoward.setPower(v1);
+        rightFoward.setPower(v2);
+        leftReverse.setPower(v3);
+        rightReverse.setPower(v4);
+
+
     }
 
 
