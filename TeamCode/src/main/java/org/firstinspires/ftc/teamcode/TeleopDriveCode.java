@@ -141,9 +141,7 @@ public class TeleopDriveCode extends OpMode
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "leftFront (%.2f), rightFront (%.2f), leftBack (%.2f), rightBack (%.2f), intakePower (%.2f)",
                                                 leftFrontPower, rightFrontPower, leftBackPower, rightBackPower, intakePower);
-    }
-    @Override
-    public void loop() {
+
         // Setup a variable for both motors (shooting and pivoting)
         double pivotPower;
         double shooterPower;
