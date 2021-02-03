@@ -142,7 +142,27 @@ public class TeleopDriveCode extends OpMode
         telemetry.addData("Motors", "leftFront (%.2f), rightFront (%.2f), leftBack (%.2f), rightBack (%.2f), intakePower (%.2f)",
                                                 leftFrontPower, rightFrontPower, leftBackPower, rightBackPower, intakePower);
     }
+    @Override
+    public void loop() {
+        // Setup a variable for both motors (shooting and pivoting)
+        double pivotPower;
+        double shooterPower;
 
+        pivotPower = -gamepad2.left_stick_y;
+        shooterPower = gamepad2. right_stick_x;
+
+        double pivot  = -gamepad2.left_stick_y;
+        double shooter  =  gamepad2.right_stick_x;
+        pivot  = Range.clip(pivot, -1.0, 1.0) ;
+        shooter   = Range.clip(shooter, -1.0, 1.0) ;
+        // Tank Mode uses one stick to control each wheel.
+
+        // Send calculated power to wheels
+
+        pivot.setPower(pivotPower);
+        shooter.setPower(shooterPower);
+
+    }
     /*
      * Code to run ONCE after the driver hits STOP
      */
