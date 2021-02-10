@@ -158,12 +158,12 @@ public class teleop extends OpMode {
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
         //when button pushed, power on
-        if (gamepad2.a = true){
+        if (gamepad2.a == true){
             intakeOnePower = 1;
         } else {
             intakeOnePower = 0;
         }
-        if (gamepad2.b = true){
+        if (gamepad2.b == true){
             intakeTwoPower = 1;
         } else {
             intakeTwoPower = 0;
