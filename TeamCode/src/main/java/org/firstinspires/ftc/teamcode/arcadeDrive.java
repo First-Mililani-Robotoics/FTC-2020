@@ -59,8 +59,8 @@ public class arcadeDrive extends OpMode {
     public DcMotor rightReverse = null;
     public DcMotor leftReverse = null;
     public DcMotor rightFoward = null;
-    public DcMotor intake = null;
-
+    public DcMotor intakeOne = null;
+    public DcMotor intakeTwo = null;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -80,33 +80,39 @@ public class arcadeDrive extends OpMode {
         rightReverse = hardwareMap.get(DcMotor.class, "right_reverse_drive");
         leftReverse = hardwareMap.get(DcMotor.class, "left_reverse_drive");
         rightFoward = hardwareMap.get(DcMotor.class, "right_foward_drive");
-        intake = hardwareMap.get(DcMotor.class, "intake_intial");
+        intakeOne = hardwareMap.get(DcMotor.class, "intake_one_intial");
+        intakeTwo = hardwareMap.get(DcMotor.class, "intake_two_intial");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFoward.setDirection(DcMotor.Direction.FORWARD);
         rightReverse.setDirection(DcMotor.Direction.REVERSE);
         leftReverse.setDirection(DcMotor.Direction.FORWARD);
         rightFoward.setDirection(DcMotor.Direction.REVERSE);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intakeOne.setDirection(DcMotor.Direction.FORWARD);
+        intakeTwo.setDirection(DcMotor.Direction.FORWARD);
         //Reset encoders
         leftFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //Reset power
         leftFoward.setPower(0);
         rightReverse.setPower(0);
         leftReverse.setPower(0);
         rightFoward.setPower(0);
-        intake.setPower(0);
+        intakeTwo.setPower(0);
+        intakeOne.setPower(0);
 
         //use encoders
         leftFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 

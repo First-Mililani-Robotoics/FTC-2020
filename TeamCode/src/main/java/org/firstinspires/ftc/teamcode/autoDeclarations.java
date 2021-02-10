@@ -19,7 +19,6 @@ public class autoDeclarations extends LinearOpMode {
     public DcMotor leftReverse = null;
     public DcMotor rightFoward = null;
     public DcMotor intake = null;
-
     //Constructor
     public autoDeclarations() {
     }
