@@ -54,7 +54,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="TeleOp", group="Iterative Opmode")
 //@Disabled
 public class TeleopDriveCode extends OpMode
 {
@@ -68,7 +68,9 @@ public class TeleopDriveCode extends OpMode
     public DcMotor pivot = null;
     public DcMotor flywheelOne = null;
     public DcMotor flywheelTwo = null;
+
     public Servo feeder = null;
+
     static final double     COUNTS_PER_MOTOR_REV    = 1680 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     PIVOT_ARM    = 5.59 ;
@@ -85,28 +87,30 @@ public class TeleopDriveCode extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        leftRearDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        rightRearDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
+        //leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
+        //leftRearDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
+        //rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
+        //rightRearDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
         intake = hardwareMap.get(DcMotor.class, "intake");
         pivot = hardwareMap.get(DcMotor.class, "pivot");
         flywheelOne = hardwareMap.get(DcMotor.class, "fwOne");
         flywheelTwo = hardwareMap.get(DcMotor.class, "fwTwo");
+
+
         feeder = hardwareMap.get(Servo.class, "feeder");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
+        //leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        //leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
+        //rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        //rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.FORWARD);
         pivot.setDirection(DcMotor.Direction.FORWARD);
         pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         flywheelOne.setDirection(DcMotor.Direction.FORWARD);
         flywheelTwo.setDirection(DcMotor.Direction.FORWARD);
-        feeder.setPosition(0.0);
+        feeder.setPosition(0.8);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -138,17 +142,16 @@ public class TeleopDriveCode extends OpMode
         double intakePower = gamepad2.right_trigger - gamepad2.left_trigger;
         boolean shoot = gamepad1.right_bumper;
         boolean drop = gamepad1.left_bumper;
-        boolean feed = gamepad2.x;
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
 
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        leftFrontDrive.setPower(leftPower);
-        leftRearDrive.setPower(leftPower);
-        rightFrontDrive.setPower(rightPower);
-        rightRearDrive.setPower(rightPower);
+        //leftFrontDrive.setPower(leftPower);
+        //leftRearDrive.setPower(leftPower);
+        //rightFrontDrive.setPower(rightPower);
+        //rightRearDrive.setPower(rightPower);
         intake.setPower(intakePower);
         if(shoot){
             pivotTo(20.0);
@@ -163,14 +166,23 @@ public class TeleopDriveCode extends OpMode
             flywheelTwo.setPower(0.0);
         }
 
-        if(feed){
-            feeder.setPosition(1.0);
-            feeder.setPosition(0.0);
+        if(gamepad2.a){
+            double startTime = runtime.time();
+            while(startTime != -1){
+                if(runtime.time()-startTime>0.5){
+                    feeder.setPosition(0.8);
+                    startTime = -1;
+                }
+                else{
+                    feeder.setPosition(0.3);
+                }
+            }
+
         }
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("Motors", "intake (%.2f)", intakePower);
     }
 
     /*
