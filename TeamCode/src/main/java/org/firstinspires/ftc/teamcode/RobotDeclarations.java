@@ -43,10 +43,11 @@ public class RobotDeclarations
     public DcMotor leftRearDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor  rightRearDrive  = null;
-    //public DcMotor intake = null;
-    //public DcMotor  pivot     = null;
-    //public DcMotor flywheel = null;
-    //public Servo    ringFeeder    = null;
+    public DcMotor intake = null;
+    public DcMotor pivot = null;
+    public DcMotor flywheelOne = null;
+    public DcMotor flywheelTwo = null;
+    public Servo feeder = null;
 
 
 
@@ -69,7 +70,7 @@ public class RobotDeclarations
         leftRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
         rightFrontDrive = hwMap.get(DcMotor.class, "right_front_drive");
         rightRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
-        //intake = hwMap.get(DcMotor.class, "inatke");
+        //intake = hwMap.get(DcMotor.class, "intake");
         //pivot    = hwMap.get(DcMotor.class, "pivot");
         //flywheel = hwMap.get(DcMotor.class, "flywheel");
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
