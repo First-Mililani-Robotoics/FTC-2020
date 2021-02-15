@@ -71,11 +71,12 @@ public class TeleopDriveCode extends OpMode
 
     public Servo feeder = null;
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1680 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     PIVOT_ARM    = 5.59 ;
+    static final double     COUNTS_PER_MOTOR_REV    = 134.4 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 0.2 ;     // This is < 1.0 if geared UP
+    static final double     PIVOT_ARM    = 0.24 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (PIVOT_ARM * 3.1415);
+    int safety = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -154,16 +155,22 @@ public class TeleopDriveCode extends OpMode
         //rightRearDrive.setPower(rightPower);
         intake.setPower(intakePower);
         if(shoot){
-            pivotTo(20.0);
-            flywheelOne.setPower(1.0);
-            flywheelTwo.setPower(1.0);
-            pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            if(safety == 0) {
+                pivotTo(20.0);
+                pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                flywheelOne.setPower(1.0);
+                flywheelTwo.setPower(1.0);
+            }
+            safety = 1;
         }
 
         if(drop){
-            pivotTo(-20.0);
-            flywheelOne.setPower(0.0);
-            flywheelTwo.setPower(0.0);
+            if(safety == 1) {
+                pivotTo(-20.0);
+                flywheelOne.setPower(0.0);
+                flywheelTwo.setPower(0.0);
+            }
+            safety = 0;
         }
 
         if(gamepad2.a){
@@ -197,6 +204,6 @@ public class TeleopDriveCode extends OpMode
         int angleTarget = pivot.getCurrentPosition()+(int)(distanceToTravel*COUNTS_PER_INCH);
         pivot.setTargetPosition(angleTarget);
         pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pivot.setPower(0.5);
+        pivot.setPower(0.3);
     }
 }
