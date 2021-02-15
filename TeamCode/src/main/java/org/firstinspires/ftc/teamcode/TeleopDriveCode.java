@@ -102,10 +102,10 @@ public class TeleopDriveCode extends OpMode
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        //leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        //leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
-        //rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        //rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.FORWARD);
         pivot.setDirection(DcMotor.Direction.FORWARD);
         pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -149,10 +149,10 @@ public class TeleopDriveCode extends OpMode
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        //leftFrontDrive.setPower(leftPower);
-        //leftRearDrive.setPower(leftPower);
-        //rightFrontDrive.setPower(rightPower);
-        //rightRearDrive.setPower(rightPower);
+        leftFrontDrive.setPower(leftPower);
+        leftRearDrive.setPower(leftPower);
+        rightFrontDrive.setPower(rightPower);
+        rightRearDrive.setPower(rightPower);
         intake.setPower(intakePower);
         if(shoot){
             if(safety == 0) {
@@ -189,7 +189,7 @@ public class TeleopDriveCode extends OpMode
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "intake (%.2f)", intakePower);
+        telemetry.addData("Motors", "leftPower (%.2f), rightPower (%.2f), intake (%.2f)", leftPower, rightPower, intakePower);
     }
 
     /*
