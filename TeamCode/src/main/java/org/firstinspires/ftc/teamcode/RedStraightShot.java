@@ -72,12 +72,12 @@ public class RedStraightShot extends LinearOpMode {
     RobotDeclarations robot   = new RobotDeclarations();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1680 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+    static final double     COUNTS_PER_MOTOR_REV    = 134.4 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 0.2 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     PIVOT_ARM    = 5.59 ;
+    static final double     PIVOT_ARM    = .24 ;
     static final double     COUNTS_PER_INCH_P         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (PIVOT_ARM * 3.1415);
     public static final double ROBOTRADIUS = 8.5;
@@ -121,12 +121,9 @@ public class RedStraightShot extends LinearOpMode {
         robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
         robot.flywheelTwo.setPower(1.0);
-        robot.feeder.setPosition(1.0);
-        robot.feeder.setPosition(0.0);
-        robot.feeder.setPosition(1.0);
-        robot.feeder.setPosition(0.0);
-        robot.feeder.setPosition(1.0);
-        robot.feeder.setPosition(0.0);
+        feed();
+        feed();
+        feed();
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-20);
@@ -153,8 +150,6 @@ public class RedStraightShot extends LinearOpMode {
         int newRightFrontTarget;
         int newLeftRearTarget;
         int newRightRearTarget;
-        int rightDirection;
-        int leftDirection;
         double leftInches = distance+((angle*(Math.PI/180)) * ROBOTRADIUS);
         double rightInches = distance+((-angle*(Math.PI/180)) * ROBOTRADIUS);
 
@@ -224,7 +219,18 @@ public class RedStraightShot extends LinearOpMode {
         int angleTarget = robot.pivot.getCurrentPosition()+(int)(distanceToTravel*COUNTS_PER_INCH_P);
         robot.pivot.setTargetPosition(angleTarget);
         robot.pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.pivot.setPower(0.5);
+        robot.pivot.setPower(0.3);
     }
-
+    public void feed(){
+        double startTime = runtime.time();
+        while(startTime != -1){
+            if(runtime.time()-startTime>0.5){
+                robot.feeder.setPosition(0.8);
+                startTime = -1;
+            }
+            else{
+                robot.feeder.setPosition(0.3);
+            }
+        }
+    }
 }
