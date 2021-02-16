@@ -35,8 +35,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -64,9 +62,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Red Straight Shot", group="Pushbot")
+@Autonomous(name="Red Straight Powershot", group="Pushbot")
 @Disabled
-public class RedStraightShot extends LinearOpMode {
+public class RedStraightPowershot extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotDeclarations robot   = new RobotDeclarations();   // Use a Pushbot's hardware
@@ -113,28 +111,44 @@ public class RedStraightShot extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(0.75,  39.5,  0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(0.5,   0, 43, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(0.75, 25.125, 0, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        encoderDrive(0.5, 0, -43, 3.0);
+        encoderDrive(0.75,  58,  0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(0.5,   0, 1, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         pivotTo(20);
         robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
         robot.flywheelTwo.setPower(1.0);
         feed();
-        feed();
+        robot.flywheelOne.setPower(0.0);
+        robot.flywheelTwo.setPower(0.0);
+        pivotTo(-20);
+        encoderDrive(0.5, 0, -5, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        pivotTo(20);
+        robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.flywheelOne.setPower(1.0);
+        robot.flywheelTwo.setPower(1.0);
         feed();
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-20);
-        encoderDrive(0.5, 0, 174, 3.0);
+        encoderDrive(0.5, 0, -6, 3.0);
+        pivotTo(20);
+        robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.flywheelOne.setPower(1.0);
+        robot.flywheelTwo.setPower(1.0);
+        feed();
+        robot.flywheelOne.setPower(0.0);
+        robot.flywheelTwo.setPower(0.0);
+        pivotTo(-20);
+
+        encoderDrive(0.5, 0, 145, 3.0);
         robot.intake.setPower(1.0);
-        encoderDrive(0.75, 7.5, 0, 1.0);
+        encoderDrive(0.75, 15, 0, 1.0);
         encoderDrive(0.3, 4, 0, 2.0);
         robot.intake.setPower(0.0);
-        encoderDrive(0.5, 0, 180, 2.0);
-        encoderDrive(0.75, 11, 0, 2.0);
-        encoderDrive(0.5, 0, 6, 2.0);
+
+        encoderDrive(0.5, 0, -130, 2.0);
+        encoderDrive(0.75, 10, 0, 2.0);
+
         pivotTo(20);
         robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
@@ -145,7 +159,9 @@ public class RedStraightShot extends LinearOpMode {
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-20);
-        encoderDrive(0.75, 14.5, 0, 3.0);
+
+        encoderDrive(0.75, 13.5, 0, 3.0);
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
