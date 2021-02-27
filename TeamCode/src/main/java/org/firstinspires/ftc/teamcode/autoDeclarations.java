@@ -19,6 +19,8 @@ public class autoDeclarations extends LinearOpMode {
     public DcMotor leftReverse = null;
     public DcMotor rightFoward = null;
     public DcMotor intake = null;
+    public DcMotor shooterOne = null;
+    public DcMotor shooterTwo = null;
     //Constructor
     public autoDeclarations() {
     }
@@ -38,11 +40,13 @@ public class autoDeclarations extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFoward = hardwareMap.get(DcMotor.class, "left_foward_drive");
-        rightReverse = hardwareMap.get(DcMotor.class, "right_reverse_drive");
-        leftReverse = hardwareMap.get(DcMotor.class, "left_reverse_drive");
-        rightFoward = hardwareMap.get(DcMotor.class, "right_foward_drive");
-        intake = hardwareMap.get(DcMotor.class, "intake_intial");
+        leftFoward = hardwareMap.get(DcMotor.class, "leftFront");
+        rightReverse = hardwareMap.get(DcMotor.class, "rightBack");
+        leftReverse = hardwareMap.get(DcMotor.class, "leftBack");
+        rightFoward = hardwareMap.get(DcMotor.class, "rightFront");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        shooterOne = hardwareMap.get(DcMotor.class, "shooter1");
+        shooterTwo = hardwareMap.get(DcMotor.class, "shooter2");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFoward.setDirection(DcMotor.Direction.FORWARD);
@@ -50,19 +54,21 @@ public class autoDeclarations extends LinearOpMode {
         leftReverse.setDirection(DcMotor.Direction.FORWARD);
         rightFoward.setDirection(DcMotor.Direction.REVERSE);
         intake.setDirection(DcMotor.Direction.FORWARD);
+        shooterOne.setDirection(DcMotor.Direction.FORWARD);
+        shooterTwo.setDirection(DcMotor.Direction.FORWARD);
         //Reset encoders
         leftFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //Reset power
         leftFoward.setPower(0);
         rightReverse.setPower(0);
         leftReverse.setPower(0);
         rightFoward.setPower(0);
         intake.setPower(0);
-
+        shooterOne.setPower(0);
+        shooterTwo.setPower(0);
     }
 
     //Turning
