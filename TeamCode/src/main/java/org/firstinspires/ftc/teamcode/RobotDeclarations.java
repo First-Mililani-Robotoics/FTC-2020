@@ -70,12 +70,13 @@ public class RobotDeclarations
         leftRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
         rightFrontDrive = hwMap.get(DcMotor.class, "right_front_drive");
         rightRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
-        //intake = hwMap.get(DcMotor.class, "intake");
-        //pivot    = hwMap.get(DcMotor.class, "pivot");
-        //flywheel = hwMap.get(DcMotor.class, "flywheel");
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        intake = hwMap.get(DcMotor.class, "intake");
+        pivot    = hwMap.get(DcMotor.class, "pivot");
+        flywheelOne = hwMap.get(DcMotor.class, "fwOne");
+        flywheelTwo = hwMap.get(DcMotor.class, "fwTwo");
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -83,9 +84,10 @@ public class RobotDeclarations
         leftRearDrive.setPower(0);
         rightFrontDrive.setPower(0);
         rightRearDrive.setPower(0);
-        //intake.setPower(0);
-        //pivot.setPower(0);
-        //flywheel.setPower(0);
+        intake.setPower(0);
+        pivot.setPower(0);
+        flywheelOne.setPower(0);
+        flywheelTwo.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -93,13 +95,11 @@ public class RobotDeclarations
         leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //flywheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Define and initialize ALL installed servos.
-        //ringFeeder  = hwMap.get(Servo.class, "ring_feeder");
-        //ringFeeder.setPosition(0.0);
+        feeder  = hwMap.get(Servo.class, "feeder");
+        feeder.setPosition(0.6);
     }
  }
 
