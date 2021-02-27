@@ -61,7 +61,8 @@ public class teleop extends OpMode {
     private DcMotor leftReverse = null;
     private DcMotor rightFoward = null;
     private DcMotor intakeOne = null;
-    private DcMotor intakeTwo = null;
+    private DcMotor shooterOne = null;
+    private DcMotor shooterTwo = null;
 
 
     /*
@@ -78,13 +79,13 @@ public class teleop extends OpMode {
             // Initialize the hardware variables. Note that the strings used here as parameters
             // to 'get' must correspond to the names assigned during the robot configuration
             // step (using the FTC Robot Controller app on the phone).
-            leftFoward = hardwareMap.get(DcMotor.class, "left_foward_drive");
-            rightReverse = hardwareMap.get(DcMotor.class, "right_reverse_drive");
-            leftReverse = hardwareMap.get(DcMotor.class, "left_reverse_drive");
-            rightFoward = hardwareMap.get(DcMotor.class, "right_foward_drive");
-            intakeOne = hardwareMap.get(DcMotor.class, "intake_one_intial");
-            intakeTwo = hardwareMap.get(DcMotor.class, "intake_two_intial");
-
+            leftFoward = hardwareMap.get(DcMotor.class, "leftFront");
+            rightReverse = hardwareMap.get(DcMotor.class, "rightBack");
+            leftReverse = hardwareMap.get(DcMotor.class, "leftBack");
+            rightFoward = hardwareMap.get(DcMotor.class, "rightFront");
+            intakeOne = hardwareMap.get(DcMotor.class, "intake");
+            shooterOne = hardwareMap.get(DcMotor.class, "shooter1");
+            shooterTwo = hardwareMap.get(DcMotor.class, "shooter2");
             // Most robots need the motor on one side to be reversed to drive forward
             // Reverse the motor that runs backwards when connected directly to the battery
             leftFoward.setDirection(DcMotor.Direction.FORWARD);
@@ -92,29 +93,27 @@ public class teleop extends OpMode {
             leftReverse.setDirection(DcMotor.Direction.FORWARD);
             rightFoward.setDirection(DcMotor.Direction.REVERSE);
             intakeOne.setDirection(DcMotor.Direction.FORWARD);
-            intakeTwo.setDirection(DcMotor.Direction.FORWARD);
+            shooterOne = setDirection(DcMotor.Direction.FORWARD);
+            shooterTwo = setDirection(DcMotor.Direction.FORWARD);
             //Reset encoders
             leftFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            intakeTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            intakeOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //Reset power
             leftFoward.setPower(0);
             rightReverse.setPower(0);
             leftReverse.setPower(0);
             rightFoward.setPower(0);
-            intakeTwo.setPower(0);
             intakeOne.setPower(0);
+            shooterOne.setPower(0);
+            shooterTwo.setPower(0);
 
             //use encoders
             leftFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             leftReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            intakeOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            intakeTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -141,8 +140,6 @@ public class teleop extends OpMode {
         double rightReversePower;
         double leftReversePower;
         double rightFowardPower;
-        double intakeOnePower;
-        double intakeTwoPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -158,15 +155,26 @@ public class teleop extends OpMode {
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
         //when button pushed, power on
-        if (gamepad2.a == true){
-            intakeOnePower = 1;
-        } else {
-            intakeOnePower = 0;
+        if (gamepad2.a == true) {
+            intakeOne.setPower(.5);
+        }
+        if (gamepad2.a == false) {
+            intakeOne.setPower(0);
         }
         if (gamepad2.b == true){
-            intakeTwoPower = 1;
-        } else {
-            intakeTwoPower = 0;
+            intakeOne.setPower(-.5);
+        }
+        if (gamepad2.b == false){
+            intakeOne.setPower(0);
+        }
+
+        if (gamepad2.right_bumper == true) {
+            shooterOne.setPower(1);
+            shooterTwo.setPower(1);
+        }
+        if (gamepad2.left_bumper == false) {
+            shooterOne.setPower(0);
+            shooterTwo.setPower(0);
         }
 
         //Left side: If the stick is held left or right, then set powers to strafe.
@@ -202,14 +210,13 @@ public class teleop extends OpMode {
         leftReverse.setPower(leftReversePower);
         rightFoward.setPower(rightFowardPower);
         intakeOne.setPower(intakeOnePower);
-        intakeTwo.setPower(intakeTwoPower);
 
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors",
-                "leftForward (%.2f), rightReverse (%.2f), leftReverse (%.2f), rightForward (%.2f), intakeOnePower (%.2f), intakeTwoPower (%.2f)",
-                leftFowardPower, rightReversePower, leftReversePower, rightFowardPower, intakeOnePower, intakeTwoPower);
+                "leftForward (%.2f), rightReverse (%.2f), leftReverse (%.2f), rightForward (%.2f), intakeOnePower (%.2f)",
+                leftFowardPower, rightReversePower, leftReversePower, rightFowardPower, intakeOnePower);
     }
 
     /*
