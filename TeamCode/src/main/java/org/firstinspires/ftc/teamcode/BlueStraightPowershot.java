@@ -62,9 +62,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Red Straight Powershot", group="Pushbot")
+@Autonomous(name="Blue Straight Powershot", group="Pushbot")
 //@Disabled
-public class RedStraightPowershot extends LinearOpMode {
+public class BlueStraightPowershot extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotDeclarations robot   = new RobotDeclarations();   // Use a Pushbot's hardware
@@ -113,7 +113,7 @@ public class RedStraightPowershot extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         robot.feeder.setPosition(0.6);
         encoderDrive(0.75,  58,  0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(0.5,   0, 1, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(0.5,   0, -1, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         pivotTo(2);
         //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
@@ -122,7 +122,7 @@ public class RedStraightPowershot extends LinearOpMode {
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-2);
-        encoderDrive(0.5, 0, -5, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(0.5, 0, 5, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
         pivotTo(2);
         //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
@@ -131,7 +131,7 @@ public class RedStraightPowershot extends LinearOpMode {
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-2);
-        encoderDrive(0.5, 0, -6, 3.0);
+        encoderDrive(0.5, 0, 6, 3.0);
         pivotTo(2);
         //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
@@ -141,17 +141,17 @@ public class RedStraightPowershot extends LinearOpMode {
         robot.flywheelTwo.setPower(0.0);
         pivotTo(-2);
 
-        encoderDrive(0.5, 0, 145, 3.0);
+        encoderDrive(0.5, 0, -145, 3.0);
         robot.intake.setPower(1.0);
         encoderDrive(0.75, 15, 0, 1.0);
         encoderDrive(0.3, 4, 0, 2.0);
         robot.intake.setPower(0.0);
 
-        encoderDrive(0.5, 0, -130, 2.0);
+        encoderDrive(0.5, 0, 130, 2.0);
         encoderDrive(0.75, 10, 0, 2.0);
 
         pivotTo(2);
-        robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.flywheelOne.setPower(1.0);
         robot.flywheelTwo.setPower(1.0);
         feed();
