@@ -68,53 +68,53 @@ public class teleop extends OpMode {
     /*
      * Code to run ONCE when the driver hits INIT
      */
-        public void init() {
-            telemetry.addData("Status", "Initialized");
+    public void init() {
+        telemetry.addData("Status", "Initialized");
 
-            // Initialize the hardware variables. Note that the strings used here as parameters
-            // to 'get' must correspond to the names assigned during the robot configuration
-            // step (using the FTC Robot Controller app on the phone).
-            //Name motors
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        //Name motors
 
-            // Initialize the hardware variables. Note that the strings used here as parameters
-            // to 'get' must correspond to the names assigned during the robot configuration
-            // step (using the FTC Robot Controller app on the phone).
-            leftFoward = hardwareMap.get(DcMotor.class, "leftFront");
-            rightReverse = hardwareMap.get(DcMotor.class, "rightBack");
-            leftReverse = hardwareMap.get(DcMotor.class, "leftBack");
-            rightFoward = hardwareMap.get(DcMotor.class, "rightFront");
-            intakeOne = hardwareMap.get(DcMotor.class, "intake");
-            shooterOne = hardwareMap.get(DcMotor.class, "shooter1");
-            shooterTwo = hardwareMap.get(DcMotor.class, "shooter2");
-            // Most robots need the motor on one side to be reversed to drive forward
-            // Reverse the motor that runs backwards when connected directly to the battery
-            leftFoward.setDirection(DcMotor.Direction.FORWARD);
-            rightReverse.setDirection(DcMotor.Direction.REVERSE);
-            leftReverse.setDirection(DcMotor.Direction.FORWARD);
-            rightFoward.setDirection(DcMotor.Direction.REVERSE);
-            intakeOne.setDirection(DcMotor.Direction.FORWARD);
-            shooterOne = setDirection(DcMotor.Direction.FORWARD);
-            shooterTwo = setDirection(DcMotor.Direction.FORWARD);
-            //Reset encoders
-            leftFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //Reset power
-            leftFoward.setPower(0);
-            rightReverse.setPower(0);
-            leftReverse.setPower(0);
-            rightFoward.setPower(0);
-            intakeOne.setPower(0);
-            shooterOne.setPower(0);
-            shooterTwo.setPower(0);
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        leftFoward = hardwareMap.get(DcMotor.class, "leftFront");
+        rightReverse = hardwareMap.get(DcMotor.class, "rightBack");
+        leftReverse = hardwareMap.get(DcMotor.class, "leftBack");
+        rightFoward = hardwareMap.get(DcMotor.class, "rightFront");
+        intakeOne = hardwareMap.get(DcMotor.class, "intake");
+        shooterOne = hardwareMap.get(DcMotor.class, "shooter1");
+        shooterTwo = hardwareMap.get(DcMotor.class, "shooter2");
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
+        leftFoward.setDirection(DcMotor.Direction.FORWARD);
+        rightReverse.setDirection(DcMotor.Direction.REVERSE);
+        leftReverse.setDirection(DcMotor.Direction.FORWARD);
+        rightFoward.setDirection(DcMotor.Direction.REVERSE);
+        intakeOne.setDirection(DcMotor.Direction.FORWARD);
+        shooterOne.setDirection(DcMotor.Direction.FORWARD);
+        shooterTwo.setDirection(DcMotor.Direction.FORWARD);
+        //Reset encoders
+        leftFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftReverse.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFoward.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Reset power
+        leftFoward.setPower(0);
+        rightReverse.setPower(0);
+        leftReverse.setPower(0);
+        rightFoward.setPower(0);
+        intakeOne.setPower(0);
+        shooterOne.setPower(0);
+        shooterTwo.setPower(0);
 
-            //use encoders
-            leftFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rightReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            leftReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rightFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        //use encoders
+        leftFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
@@ -209,14 +209,13 @@ public class teleop extends OpMode {
         rightReverse.setPower(rightReversePower);
         leftReverse.setPower(leftReversePower);
         rightFoward.setPower(rightFowardPower);
-        intakeOne.setPower(intakeOnePower);
 
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors",
-                "leftForward (%.2f), rightReverse (%.2f), leftReverse (%.2f), rightForward (%.2f), intakeOnePower (%.2f)",
-                leftFowardPower, rightReversePower, leftReversePower, rightFowardPower, intakeOnePower);
+                "leftForward (%.2f), rightReverse (%.2f), leftReverse (%.2f), rightForward (%.2f)",
+                leftFowardPower, rightReversePower, leftReversePower, rightFowardPower);
     }
 
     /*
