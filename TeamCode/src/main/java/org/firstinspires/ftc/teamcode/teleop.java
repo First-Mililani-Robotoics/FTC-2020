@@ -167,7 +167,7 @@ public class teleop extends OpMode {
         if (gamepad2.b == false){
             intakeOne.setPower(0);
         }
-
+        //if ur reading this ur moms very beautiful and respectable
         if (gamepad2.right_bumper == true) {
             shooterOne.setPower(1);
             shooterTwo.setPower(1);
