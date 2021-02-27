@@ -75,11 +75,16 @@ public class autoLeftHalf extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        robot.encoderDrive(0.5, 22.75, 22.75, 1.0);  //  Forward 22.75 Inches with 1 Sec timeout
-        robot.turnDrive(0.5, 90, 1.0); //Turn clockwise 90 degrees
-        robot.encoderDrive(0.5, 80, 80, 1.0);  //  Forward 80 Inches with 1 Sec timeout
-        robot.intake.setPower(1); //Shoot rings
-
+        robot.encoderDrive(0.5, -65, -65, 1.0);  //  Forward 65 Inches with 1 Sec timeout
+        robot.shooterOne.setPower(1);
+        robot.shooterTwo.setPower(1);
+        sleep(1000);
+        robot.intake.setPower(0.5); //Shoot rings
+        sleep(10000);
+        robot.intake.setPower(0);
+        robot.shooterOne.setPower(0);
+        robot.shooterTwo.setPower(0);
+        robot.encoderDrive(0.5, -8, -8, 1.0);  //  Forward 8 Inches with 1 Sec timeout
 
     }
 }
