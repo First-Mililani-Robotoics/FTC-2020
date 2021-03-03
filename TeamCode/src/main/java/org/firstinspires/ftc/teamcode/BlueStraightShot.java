@@ -72,7 +72,7 @@ public class BlueStraightShot extends LinearOpMode {
     RobotDeclarations robot   = new RobotDeclarations();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 134.4 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 537.6 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 0.2 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -192,10 +192,6 @@ public class BlueStraightShot extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.leftFrontDrive.setPower(Math.abs(speed));
-            robot.rightFrontDrive.setPower(Math.abs(speed));
-            robot.leftRearDrive.setPower(Math.abs(speed));
-            robot.rightRearDrive.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -206,7 +202,10 @@ public class BlueStraightShot extends LinearOpMode {
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftFrontDrive.isBusy() && robot.rightFrontDrive.isBusy())) {
-
+                robot.leftFrontDrive.setPower(Math.abs(speed));
+                robot.rightFrontDrive.setPower(Math.abs(speed));
+                robot.leftRearDrive.setPower(Math.abs(speed));
+                robot.rightRearDrive.setPower(Math.abs(speed));
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
