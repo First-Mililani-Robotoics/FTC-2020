@@ -70,7 +70,7 @@ public class autoDeclarations extends LinearOpMode {
         shooterOne.setPower(0);
         shooterTwo.setPower(0);
     }
-
+/*
     //Turning
     public void turnDrive(double speed, double degrees, double timeoutS) {
         int turnLeftTarget;
@@ -133,7 +133,7 @@ public class autoDeclarations extends LinearOpMode {
                             leftReverse.isBusy() || rightFoward.isBusy())) {
                 //start motion
                 leftFoward.setPower(leftPower);
-                rightReverse.setPower(rightPower);
+                rightFoward.setPower(rightPower);
                 leftReverse.setPower(leftPower);
                 rightReverse.setPower(rightPower);
 
@@ -173,7 +173,7 @@ public class autoDeclarations extends LinearOpMode {
             rightFoward.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             //Reset the timeout time and start motion
-            runtime.reset();
+            //runtime.reset();
 
 
             // keep looping while we are still active, and there is time left, and both motors are running.
@@ -201,14 +201,6 @@ public class autoDeclarations extends LinearOpMode {
                         leftReverse.getCurrentPosition(),
                         rightFoward.getCurrentPosition());
                 telemetry.update();
-
-                //Stop
-                leftFoward.setPower(0);
-                rightReverse.setPower(0);
-                leftReverse.setPower(0);
-                rightFoward.setPower(0);
-                intake.setPower(0);
-
                 //Turn off RUN_TO_POSITION
                 leftFoward.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 rightReverse.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -217,9 +209,16 @@ public class autoDeclarations extends LinearOpMode {
                 // Tell the driver that initialization is complete.
                 telemetry.addData("Status", "Initialized");
             }
-
+            //Stop
+            leftFoward.setPower(0);
+            rightReverse.setPower(0);
+            leftReverse.setPower(0);
+            rightFoward.setPower(0);
+            intake.setPower(0);
+            shooterOne.setPower(0);
+            shooterTwo.setPower(0);
         }
 
 
-    }
+    }*/
 }
