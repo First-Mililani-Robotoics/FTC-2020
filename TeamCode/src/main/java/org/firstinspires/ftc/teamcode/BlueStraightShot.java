@@ -35,7 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+//import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -72,8 +72,8 @@ public class BlueStraightShot extends LinearOpMode {
     RobotDeclarations robot   = new RobotDeclarations();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 537.6 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 0.2 ;     // This is < 1.0 if geared UP
+    static final double     COUNTS_PER_MOTOR_REV    =560 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 1 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -114,39 +114,45 @@ public class BlueStraightShot extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         robot.feeder.setPosition(0.6);
-        encoderDrive(0.75,  39.5,  0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(0.5,   0, -43, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(0.75, 25.125, 0, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        encoderDrive(0.5, 0, 43, 3.0);
-        pivotTo(2);
+        encoderDrive(0.5,  39.5,  0, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(0.5,   0, -43, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(0.5, 25.125, 0, 5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(0.5, 0, 43, 5.0);
+        pivotTo(2.2);
         //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.flywheelOne.setPower(1.0);
-        robot.flywheelTwo.setPower(1.0);
+        robot.flywheelOne.setPower(0.7);
+        robot.flywheelTwo.setPower(0.7);
+        sleep(750);
         feed();
+        sleep(750);
         feed();
+        sleep(750);
         feed();
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
-        pivotTo(-2);
-        encoderDrive(0.5, 0, -174, 3.0);
-        robot.intake.setPower(1.0);
-        encoderDrive(0.75, 7.5, 0, 1.0);
-        encoderDrive(0.3, 4, 0, 2.0);
+        pivotTo(-2.2);
+        encoderDrive(0.5, 0, -174, 5.0);
+        robot.intake.setPower(0.1);
+        encoderDrive(0.5, 7.5, 0, 5.0);
+        encoderDrive(0.3, 4, 0, 5.0);
         robot.intake.setPower(0.0);
-        encoderDrive(0.5, 0, -180, 2.0);
-        encoderDrive(0.75, 11, 0, 2.0);
-        encoderDrive(0.5, 0, -6, 2.0);
-        pivotTo(5);
+        encoderDrive(0.5, 0, -180, 5.0);
+        encoderDrive(0.5, 11, 0, 5.0);
+        encoderDrive(0.5, 0, -6, 5.0);
+        pivotTo(2.2);
         //robot.pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.flywheelOne.setPower(1.0);
-        robot.flywheelTwo.setPower(1.0);
+        robot.flywheelOne.setPower(0.7);
+        robot.flywheelTwo.setPower(0.7);
+        sleep(750);
         feed();
+        sleep(750);
         feed();
+        sleep(750);
         feed();
         robot.flywheelOne.setPower(0.0);
         robot.flywheelTwo.setPower(0.0);
-        pivotTo(-5);
-        encoderDrive(0.75, 14.5, 0, 3.0);
+        pivotTo(-2.2);
+        encoderDrive(0.75, 14.5, 0, 5.0);
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
@@ -162,10 +168,10 @@ public class BlueStraightShot extends LinearOpMode {
     public void encoderDrive(double speed,
                              double distance, double angle,
                              double timeoutS) {
-        int newLeftFrontTarget;
-        int newRightFrontTarget;
-        int newLeftRearTarget;
-        int newRightRearTarget;
+        int newLeftTarget;
+        int newRightTarget;
+        //int newLeftRearTarget;
+        //int newRightRearTarget;
         double leftInches = distance+((angle*(Math.PI/180)) * ROBOTRADIUS);
         double rightInches = distance+((-angle*(Math.PI/180)) * ROBOTRADIUS);
 
@@ -173,14 +179,14 @@ public class BlueStraightShot extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newLeftRearTarget = robot.leftRearDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightRearTarget = robot.rightRearDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.leftFrontDrive.setTargetPosition(newLeftFrontTarget);
-            robot.rightFrontDrive.setTargetPosition(newRightFrontTarget);
-            robot.leftRearDrive.setTargetPosition(newLeftRearTarget);
-            robot.rightRearDrive.setTargetPosition(newRightRearTarget);
+            newLeftTarget = robot.leftFrontDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.rightFrontDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            //newLeftRearTarget = robot.leftRearDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            //newRightRearTarget = robot.rightRearDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            robot.leftFrontDrive.setTargetPosition(newLeftTarget);
+            robot.rightFrontDrive.setTargetPosition(newRightTarget);
+            robot.leftRearDrive.setTargetPosition(newLeftTarget);
+            robot.rightRearDrive.setTargetPosition(newRightTarget);
 
 
 
@@ -192,6 +198,10 @@ public class BlueStraightShot extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
+            robot.leftFrontDrive.setPower(Math.abs(speed));
+            robot.rightFrontDrive.setPower(Math.abs(speed));
+            robot.leftRearDrive.setPower(Math.abs(speed));
+            robot.rightRearDrive.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -202,12 +212,9 @@ public class BlueStraightShot extends LinearOpMode {
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftFrontDrive.isBusy() && robot.rightFrontDrive.isBusy())) {
-                robot.leftFrontDrive.setPower(Math.abs(speed));
-                robot.rightFrontDrive.setPower(Math.abs(speed));
-                robot.leftRearDrive.setPower(Math.abs(speed));
-                robot.rightRearDrive.setPower(Math.abs(speed));
+
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.leftFrontDrive.getCurrentPosition(),
                         robot.rightFrontDrive.getCurrentPosition());
@@ -235,6 +242,9 @@ public class BlueStraightShot extends LinearOpMode {
         robot.pivot.setTargetPosition(angleTarget);
         robot.pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.pivot.setPower(0.3);
+        if(robot.pivot.getCurrentPosition()==distanceToTravel){
+            robot.pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
     }
     public void feed(){
         double startTime = runtime.time();
