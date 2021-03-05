@@ -75,16 +75,43 @@ public class autoLeftHalf extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        robot.encoderDrive(0.5, -65, -65, 1.0);  //  Forward 65 Inches with 1 Sec timeout
-        robot.shooterOne.setPower(1);
-        robot.shooterTwo.setPower(1);
-        sleep(1000);
-        robot.intake.setPower(0.5); //Shoot rings
-        sleep(10000);
+        //.encoderDrive(0.5, -53, -53, 1.0);  //  Forward 65 Inches with 1 Sec timeout
+        robot.leftFoward.setPower(0.5);
+        robot.leftReverse.setPower(.5);
+        robot.rightFoward.setPower(.5);
+        robot.rightReverse.setPower(.5);
+        sleep(3700);
+        robot.leftFoward.setPower(0);
+        robot.leftReverse.setPower(0);
+        robot.rightFoward.setPower(0);
+        robot.rightReverse.setPower(0);
+        sleep(500);
+        robot.shooterOne.setPower(.68);
+        robot.shooterTwo.setPower(.68);
+        sleep(2000);
+        robot.intake.setPower(-1); //Shoot 1st ring
+        sleep(200);
+        robot.intake.setPower(0);
+        sleep(900);
+        robot.intake.setPower(-1);
+        sleep(600);
+        robot.intake.setPower(0);
+        sleep(700);
+        robot.intake.setPower(-1);
+        sleep(2000);
         robot.intake.setPower(0);
         robot.shooterOne.setPower(0);
         robot.shooterTwo.setPower(0);
-        robot.encoderDrive(0.5, -8, -8, 1.0);  //  Forward 8 Inches with 1 Sec timeout
-
+        sleep(500);
+        robot.leftFoward.setPower(-1);
+        robot.leftReverse.setPower(-1);
+        robot.rightFoward.setPower(-1);
+        robot.rightReverse.setPower(-1);
+        sleep(1230);
+        robot.leftFoward.setPower(0);
+        robot.leftReverse.setPower(0);
+        robot.rightFoward.setPower(0);
+        robot.rightReverse.setPower(0);
+        //robot.encoderDrive(0.5, -16, -16, 1.0);  //  Forward 8 Inches with 1 Sec timeout
     }
 }
