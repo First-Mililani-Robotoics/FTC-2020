@@ -146,8 +146,8 @@ public class TeleopDriveCode extends OpMode
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
 
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        leftPower    = Range.clip(drive + turn, -0.8, 0.8) ;
+        rightPower   = Range.clip(drive - turn, -0.8, 0.8) ;
 
         leftFrontDrive.setPower(leftPower);
         leftRearDrive.setPower(leftPower);
@@ -156,21 +156,31 @@ public class TeleopDriveCode extends OpMode
         intake.setPower(intakePower);
         if(shoot){
             if(safety == 0) {
-                pivotTo(2.0);
-                pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                flywheelOne.setPower(1.0);
-                flywheelTwo.setPower(1.0);
+                pivotTo(2.2);
+                //pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                flywheelOne.setPower(0.7);
+                flywheelTwo.setPower(0.7);
             }
             safety = 1;
         }
 
         if(drop){
             if(safety == 1) {
-                pivotTo(-2.0);
+                pivotTo(-2.2);
                 flywheelOne.setPower(0.0);
                 flywheelTwo.setPower(0.0);
             }
             safety = 0;
+        }
+
+        if(gamepad1.y){
+            flywheelOne.setPower(0.6);
+            flywheelTwo.setPower(0.6);
+        }
+
+        if(gamepad1.x){
+            flywheelOne.setPower(0);
+            flywheelTwo.setPower(0);
         }
 
         if(gamepad2.a){
@@ -204,6 +214,9 @@ public class TeleopDriveCode extends OpMode
         int angleTarget = pivot.getCurrentPosition()+(int)(distanceToTravel*COUNTS_PER_INCH);
         pivot.setTargetPosition(angleTarget);
         pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pivot.setPower(0.3);
+        pivot.setPower(0.35);
+        if(pivot.getCurrentPosition()==distanceToTravel){
+            pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
     }
 }
