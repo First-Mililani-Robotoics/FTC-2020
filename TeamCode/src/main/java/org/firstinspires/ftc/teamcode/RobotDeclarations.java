@@ -69,7 +69,7 @@ public class RobotDeclarations
         leftFrontDrive  = hwMap.get(DcMotor.class, "left_front_drive");
         leftRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
         rightFrontDrive = hwMap.get(DcMotor.class, "right_front_drive");
-        rightRearDrive  = hwMap.get(DcMotor.class, "left_rear_drive");
+        rightRearDrive  = hwMap.get(DcMotor.class, "right_rear_drive");
         intake = hwMap.get(DcMotor.class, "intake");
         pivot    = hwMap.get(DcMotor.class, "pivot");
         flywheelOne = hwMap.get(DcMotor.class, "fwOne");
